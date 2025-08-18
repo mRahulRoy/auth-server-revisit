@@ -1,0 +1,15 @@
+{
+  "name": "auth-service-revist",
+  "version": "1.0.0",
+  "description": "This is just for practicist the backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rahul rou",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  }
+}
