@@ -1,6 +1,9 @@
 function name(name: string) {
-    console.log('hello');
-    return name;
+    const obj = {
+        na: 'kk',
+    };
+    const val = obj.na;
+    return name + val;
 }
 
 name('Rahul');
