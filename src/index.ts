@@ -1,5 +1,5 @@
 function name(name: string) {
-  console.log('Hello world', name);
+    return name;
 }
 
 name('Rahul');
