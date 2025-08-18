@@ -4,12 +4,15 @@
   "description": "This is just for practicist the backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:fix":"prettier . --write",
+    "format:check":"prettier . --check"
   },
   "author": "rahul rou",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^24.3.0",
+    "prettier": "3.6.2",
     "typescript": "^5.9.2"
   }
 }
