@@ -1,18 +1,17 @@
 {
     "compilerOptions": {
-      "target": "esnext",
-      "module": "commonjs",               // no ESM drama
-      "moduleResolution": "node",         // no extension needed
-      "esModuleInterop": true,            // default import support
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,          // if you import .json
-      "strict": true,
-      "skipLibCheck": true,
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "sourceMap": true,
-      "declaration": true
+        "target": "esnext",
+        "module": "commonjs", // no ESM drama
+        "moduleResolution": "node", // no extension needed
+        "esModuleInterop": true, // default import support
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true, // if you import .json
+        "strict": true,
+        "skipLibCheck": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "sourceMap": true,
+        "declaration": true
     },
-    "include": ["src"]
-  }
-  
+    "include": ["src","app.spec.ts", "**/*.spec.ts"]
+}
