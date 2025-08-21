@@ -7,11 +7,14 @@
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true, // if you import .json
         "strict": true,
+        "lib": ["es6"],
         "skipLibCheck": true,
         "outDir": "./dist",
         "rootDir": "./src",
         "sourceMap": true,
-        "declaration": true
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
     },
-    "include": ["src","app.spec.ts", "**/*.spec.ts"]
+    "include": ["src", "app.spec.ts", "**/*.spec.ts"]
 }
