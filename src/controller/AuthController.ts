@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { UserService } from '../services/UserService';
 import { Logger } from 'winston';
-
 interface UserData {
     firstName: string;
     lastName: string;
