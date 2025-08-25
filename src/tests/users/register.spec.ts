@@ -131,5 +131,23 @@ describe('POST /auth/register', () => {
         });
     });
     //sad path
-    describe('Not Given all paths', () => {});
+    describe('Not Given all paths', () => {
+        it('should return 400 status code if email is missing', async () => {
+            const userData = {
+                firstName: 'Rahul',
+                lastName: 'Kumar',
+                email: '',
+                password: 'secret',
+            };
+
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+            //    Assert
+            const connection = AppDataSource.getRepository(User);
+            const user = await connection.find();
+            expect(response.statusCode).toBe(400);
+            expect(user?.length).toBe(0);
+        });
+    });
 });
