@@ -14,7 +14,8 @@
         "sourceMap": true,
         "declaration": true,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false
     },
-    "include": ["src", "app.spec.ts", "**/*.spec.ts"]
+    "include": ["src", "app.spec.ts", "**/*.spec.ts", ]
 }
