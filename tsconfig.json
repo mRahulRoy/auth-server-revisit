@@ -17,5 +17,5 @@
         "experimentalDecorators": true,
         "strictPropertyInitialization": false
     },
-    "include": ["src", "app.spec.ts", "**/*.spec.ts", ]
+    "include": ["src", "app.spec.ts", "**/*.spec.ts"]
 }

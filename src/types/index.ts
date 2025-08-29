@@ -14,5 +14,15 @@ export default interface AuthRequest extends Request {
     auth: {
         sub: number;
         role: number;
+        id?: string;
     };
+}
+
+export type AuthCookie = {
+    accessToken: string;
+    refreshToken: string;
+};
+
+export interface IRefreshTokenPayload {
+    id: string;
 }

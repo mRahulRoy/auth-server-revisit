@@ -166,6 +166,75 @@ export class AuthController {
     async self(req: AuthRequest, res: Response, next: NextFunction) {
         const { sub } = req.auth;
         const user = await this.userService.findById(+sub);
-        res.status(200).json(user);
+        res.status(200).json({ ...user, password: undefined });
+    }
+
+    async refresh(req: AuthRequest, res: Response, next: NextFunction) {
+        try {
+            const payload: JwtPayload = {
+                sub: String(req.auth.sub),
+                role: req.auth.role,
+            };
+
+            const accessToken = this.tokenService.generateAccessToken(payload);
+            const user = await this.userService.findById(Number(req.auth.sub));
+            if (!user) {
+                const error = createHttpError(
+                    401,
+                    'User with the token could not be found',
+                );
+                next(error);
+                return;
+            }
+            //persist the new refresh token record in the db
+            const newRefreshToken =
+                await this.tokenService.persistRefreshToken(user);
+            //deleting the old refresh token
+            await this.tokenService.deleteRefreshToken(Number(req.auth.id));
+
+            const refreshToken = this.tokenService.generateRefreshToken({
+                ...payload,
+                id: String(newRefreshToken.id),
+            });
+
+            res.cookie('accessToken', accessToken, {
+                domain: 'localhost',
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60, //1 hr
+                httpOnly: true, //very imp
+            });
+
+            res.cookie('refreshToken', refreshToken, {
+                domain: 'localhost',
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60 * 24 * 365,
+                httpOnly: true,
+            });
+            res.json({ id: user.id });
+        } catch (error) {
+            next(error);
+            return;
+        }
+    }
+    /*
+    explanation of why we have multiple refreshToken for same user.
+    Since one user can login to multiple devices so it should not be like if a user logouts from the one device it will logout that user from the other devices as well .
+    so each refreshToken represents the number of devices in which user is curren;tly logged-In.
+    so when a user clicks on logout , it then sends a refreshToken from the cookie to server than there server validates if this valid or not if its valid then that middlewate sets the refreshToken in the req' auth object and returns , then actul logout function gets called and from there using req.auth.id which is tokenId , we find it in db and delets it. in this way a user logsOut from that particular device.
+    */
+
+    async logout(req: AuthRequest, res: Response, next: NextFunction) {
+        const { id, sub } = req.auth;
+        try {
+            await this.tokenService.deleteRefreshToken(Number(id));
+            this.logger.info(`refresh token for userId ${sub} delete`);
+            res.clearCookie('accessToken');
+            res.clearCookie('refreshToken');
+            res.status(200).json({
+                id,
+            });
+        } catch (error) {
+            next(error);
+        }
     }
 }

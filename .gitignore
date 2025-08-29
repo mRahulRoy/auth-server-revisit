@@ -6,3 +6,4 @@ logs
 .logs
 app.logs
 certs
+public

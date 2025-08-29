@@ -63,5 +63,22 @@ describe('POST /auth/self', () => {
                 .send();
             expect((response.body as Record<string, string>).id).toBe(data.id);
         });
+        it('Should return 401 is token does not exists ', async () => {
+            const userData = {
+                firstName: 'Rahul',
+                lastName: 'Kumar',
+                email: 'rahul@gmail.com',
+                password: 'secret',
+            };
+            const userRepository = connection.getRepository(User);
+
+            await userRepository.save({
+                ...userData,
+                role: Roles.CUSTOMER,
+            });
+            const response = await request(app).get('/auth/self').send();
+
+            expect(response.statusCode).toBe(401);
+        });
     });
 });
