@@ -1,7 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({ name: 'tenants' })
-export class User {
+export class Tenant {
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -10,4 +16,9 @@ export class User {
 
     @Column()
     address: string;
+    @UpdateDateColumn()
+    updatedAt!: number;
+
+    @CreateDateColumn()
+    createdAt!: number;
 }
