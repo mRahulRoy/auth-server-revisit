@@ -8,6 +8,7 @@ import { JwtPayload } from 'jsonwebtoken';
 import createHttpError from 'http-errors';
 import { CredentialService } from '../services/CredentialService';
 import AuthRequest from '../types';
+import { Roles } from '../constants';
 interface UserData {
     firstName: string;
     lastName: string;
@@ -48,6 +49,7 @@ export class AuthController {
                 lastName,
                 email,
                 password,
+                role: Roles.CUSTOMER,
             });
             this.logger.info('User has been registered', { id: user.id });
             const payload: JwtPayload = {
