@@ -8,6 +8,7 @@
       "dev": "cross-env NODE_ENV=dev nodemon src/server.ts",
       "format:fix": "prettier . --write",
       "format:check": "prettier . --check",
+      "build": "tsc ",
       "lint:check": "eslint . ",
       "lint:fix": "eslint . --fix",
       "prepare": "husky",
