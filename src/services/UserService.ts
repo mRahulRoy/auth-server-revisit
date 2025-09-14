@@ -6,7 +6,6 @@ import Bcrypt from 'bcrypt';
 
 export class UserService {
     constructor(private userRepository: Repository<User>) {}
-
     async create({
         firstName,
         lastName,

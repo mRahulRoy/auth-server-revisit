@@ -1,6 +1,4 @@
 import JWT, { JwtPayload } from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
 import createHttpError from 'http-errors';
 import { CONFIG } from '../config';
 import { User } from '../entity/User';
@@ -10,11 +8,13 @@ import { RefreshToken } from '../entity/RefreshToken';
 class TokenService {
     constructor(private refreshTokenRepository: Repository<RefreshToken>) {}
     generateAccessToken(payload: JwtPayload) {
-        let privateKey: Buffer;
+        let privateKey: string;
         try {
-            privateKey = fs.readFileSync(
-                path.join(__dirname, '../../certs/private.pem'),
-            );
+            if (!CONFIG.PRIVATE_KEY) {
+                const err = createHttpError(500, 'Error reading private key');
+                throw err;
+            }
+            privateKey = CONFIG.PRIVATE_KEY;
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             const err = createHttpError(500, 'Error reading private key');
